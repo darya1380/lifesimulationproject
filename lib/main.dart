@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -150,11 +151,22 @@ class SecondRoot extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(population.toString()), 
+                Text(population.toString()),
                 Icon(Icons.family_restroom
-                , color: Colors.pink,)
+                , color: Colors.pink,
+                )
               ],
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(onPressed: (){}, child: Text("Pass year"),
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.red)
+                )
+                  ,)
+              ],
+            ),
           ],
         )
       ),
