@@ -53,7 +53,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('please enter your username'),
+          const Text('please enter your username'),
           TextFormField(
             // The validator receives the text that the user has entered.
             validator: (value) {
@@ -63,19 +63,24 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
-          Text('please enter your password'),
+          const Text('please enter your password'),
           TextFormField(
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
             // The validator receives the text that the user has entered.
             validator: (value1) {
               if (value1 == null || value1.isEmpty) {
                 return 'Please enter some text';
               }
-              passwordKeeper = value1;
               return null;
             },
           ),
           Text('please re enter your password'),
           TextFormField(
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty ) {
@@ -101,7 +106,6 @@ class MyCustomFormState extends State<MyCustomForm> {
               onPressed: () {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
-                  // todo
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context)=>
@@ -194,7 +198,7 @@ class _SecondRootState extends State<SecondRoot> {
                     onPressed: () {
                       // Validate returns true if the form is valid, or false otherwise.
                         // todo
-                      final data =
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context)=>
