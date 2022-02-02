@@ -78,22 +78,22 @@ class MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty ) {
+              if (value == null || value.isEmpty) {
                 return 'Please enter some text';
+              } else if (value != passwordKeeper) {
+                return "password and the re-enter value doesn't match";
               }
-              else if(value != passwordKeeper)
-                {
-                  return "password and the re-enter value doesn't match";
-                }
               return null;
             },
           ),
           Center(
-            child: Checkbox(value: isChecked, onChanged: (value){
-              setState(() {
-                isChecked = value!;
-              });
-            }),
+            child: Checkbox(
+                value: isChecked,
+                onChanged: (value) {
+                  setState(() {
+                    isChecked = value!;
+                  });
+                }),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -102,11 +102,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   // todo
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context)=>
-                    SecondRoot())
-                  );
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SecondRoot()));
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
@@ -114,9 +111,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               },
               child: const Text('Login'),
             ),
-
           ),
-
         ], //Objects in form
       ),
     );
@@ -135,96 +130,93 @@ class _SecondRootState extends State<SecondRoot> {
   var money = 10000;
   var population = 0;
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'Welcome to Flutter',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body:Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text('$money'),
-                const Icon(
-                  Icons.attach_money, color: Colors.pink,
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text('$population'),
-                Icon(Icons.family_restroom
-                , color: Colors.pink,
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TextButton(onPressed: (){
-                  setState(() {
-                    population += 150;
-                    money *= 3;
-                    if(population > 9999) {
-                      population = 10000;
-                    }
-                    if(money > 9999) {
-                      money = 10000;
-                    }
-                  });
-
-                }, child: Text("Pass year"),
-                style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.pinkAccent)
-                )
-                  ,)
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.shopping_cart_outlined),
-                  tooltip: "buy stuffs",
+          appBar: AppBar(
+            title: const Text('Welcome to Flutter'),
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('$money'),
+                  const Icon(
+                    Icons.attach_money,
+                    color: Colors.pink,
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('$population'),
+                  Icon(
+                    Icons.family_restroom,
+                    color: Colors.pink,
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextButton(
                     onPressed: () {
-                      // Validate returns true if the form is valid, or false otherwise.
+                      setState(() {
+                        population += 150;
+                        money *= 3;
+                        if (population > 9999) {
+                          population = 10000;
+                        }
+                        if (money > 9999) {
+                          money = 10000;
+                        }
+                      });
+                    },
+                    child: Text("Pass year"),
+                    style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.pinkAccent)),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                      icon: const Icon(Icons.shopping_cart_outlined),
+                      tooltip: "buy stuffs",
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false otherwise.
                         // todo
-                      final data =
-                        Navigator.push(
+                        final data = Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context)=>
-                                ShoppingStuffPage(),
-                            settings: RouteSettings(
-                              arguments: MoneyObject(money, population),
-                            ))
-                        );
+                            MaterialPageRoute(
+                                builder: (context) => ShoppingStuffPage(),
+                                settings: RouteSettings(
+                                  arguments: MoneyObject(money, population),
+                                )));
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing Data')),
                         );
-                    }
-                ),
-                IconButton(
-                icon:
-                const Icon(Icons.account_balance), onPressed: ()
-                {
-                  //todo navigate to government page
-                }, tooltip: "government page",
-                ),
-                CircularProgressIndicator(
-                  backgroundColor: Colors.red[400],
-                  strokeWidth: 8,
-                )
-
-              ],
-            )
-          ],
-        )
-      ),
+                      }),
+                  IconButton(
+                    icon: const Icon(Icons.account_balance),
+                    onPressed: () {
+                      //todo navigate to government page
+                    },
+                    tooltip: "government page",
+                  ),
+                  CircularProgressIndicator(
+                    backgroundColor: Colors.red[400],
+                    strokeWidth: 8,
+                  )
+                ],
+              )
+            ],
+          )),
     );
   }
 }
@@ -235,28 +227,18 @@ class MoneyObject {
   MoneyObject(this.money, this.population);
 }
 
-class ShoppingStuffPage extends StatelessWidget
-{
+class ShoppingStuffPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return
-        MaterialApp(
-          title: "shopping page",
-          home: Scaffold(
-            appBar: AppBar(
-              title: const Text("Shopping page")
-            ),
-            body: Column(
-              children: [
-
-              ],
-            ),
-          ),
-        );
+    return MaterialApp(
+      title: "shopping page",
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Shopping page")),
+        body: Column(
+          children: [],
+        ),
+      ),
+    );
   }
-
 }
-
-
-
