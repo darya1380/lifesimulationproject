@@ -200,7 +200,7 @@ class _SecondRootState extends State<SecondRoot> {
                             MaterialPageRoute(builder: (context)=>
                                 ShoppingStuffPage(),
                             settings: RouteSettings(
-                              arguments: MoneyObject(money, population);
+                              arguments: MoneyObject(money, population),
                             ))
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -227,6 +227,12 @@ class _SecondRootState extends State<SecondRoot> {
       ),
     );
   }
+}
+
+class MoneyObject {
+  var money;
+  var population;
+  MoneyObject(this.money, this.population);
 }
 
 class ShoppingStuffPage extends StatelessWidget
