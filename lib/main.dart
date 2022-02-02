@@ -158,7 +158,7 @@ class SecondRoot extends StatelessWidget {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 TextButton(onPressed: (){}, child: Text("Pass year"),
                 style: ButtonStyle(
@@ -167,6 +167,29 @@ class SecondRoot extends StatelessWidget {
                   ,)
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                  tooltip: "buy stuffs",
+                 onPressed: (){
+                    //todo navigate to shopping page
+                 },
+                ),
+                IconButton(
+                icon:
+                const Icon(Icons.account_balance), onPressed: (){
+                  //todo navigate to government page
+                }, tooltip: "government page",
+                ),
+                CircularProgressIndicator(
+                  backgroundColor: Colors.red[400],
+                  strokeWidth: 8,
+                )
+
+              ],
+            )
           ],
         )
       ),
