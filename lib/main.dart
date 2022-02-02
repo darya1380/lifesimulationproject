@@ -251,15 +251,6 @@ class ShoppingStuffPage extends StatelessWidget
   }
 
 }
-class MoneyObject {
-  var money;
-  var population;
-  MoneyObject(int money, int population){
-    this.money = money;
-    this.population = population;
-  }
-
-}
 
 
 
