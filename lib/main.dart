@@ -126,97 +126,96 @@ class SecondRoot extends StatefulWidget {
 }
 
 class _SecondRootState extends State<SecondRoot> {
-  @override
   var money = 10000;
   var population = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Welcome to Flutter'),
-          ),
-          body: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Welcome to Flutter'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text('$money'),
-                  const Icon(
-                    Icons.attach_money,
-                    color: Colors.pink,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text('$population'),
-                  Icon(
-                    Icons.family_restroom,
-                    color: Colors.pink,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        population += 150;
-                        money *= 3;
-                        if (population > 9999) {
-                          population = 10000;
-                        }
-                        if (money > 9999) {
-                          money = 10000;
-                        }
-                      });
-                    },
-                    child: Text("Pass year"),
-                    style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            Colors.pinkAccent)),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                      icon: const Icon(Icons.shopping_cart_outlined),
-                      tooltip: "buy stuffs",
-                      onPressed: () {
-                        // Validate returns true if the form is valid, or false otherwise.
-                        // todo
-                        final data = Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ShoppingStuffPage(),
-                                settings: RouteSettings(
-                                  arguments: MoneyObject(money, population),
-                                )));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                      }),
-                  IconButton(
-                    icon: const Icon(Icons.account_balance),
-                    onPressed: () {
-                      //todo navigate to government page
-                    },
-                    tooltip: "government page",
-                  ),
-                  CircularProgressIndicator(
-                    backgroundColor: Colors.red[400],
-                    strokeWidth: 8,
-                  )
-                ],
+              Text('$money'),
+              const Icon(
+                Icons.attach_money,
+                color: Colors.pink,
               )
             ],
-          )),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('$population'),
+              Icon(
+                Icons.family_restroom,
+                color: Colors.pink,
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    population += 150;
+                    money *= 3;
+                    if (population > 9999) {
+                      population = 10000;
+                    }
+                    if (money > 9999) {
+                      money = 10000;
+                    }
+                  });
+                },
+                child: Text("Pass year"),
+                style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.pinkAccent)),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                  tooltip: "buy stuffs",
+                  onPressed: () {
+                    // Validate returns true if the form is valid, or false otherwise.
+                    // todo
+                    final data = Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ShoppingStuffPage(),
+                            settings: RouteSettings(
+                              arguments: MoneyObject(money, population),
+                            )));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+                  }),
+              IconButton(
+                icon: const Icon(Icons.account_balance),
+                onPressed: () {
+                  //todo navigate to government page
+                },
+                tooltip: "government page",
+              ),
+              CircularProgressIndicator(
+                backgroundColor: Colors.red[400],
+                strokeWidth: 8,
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
