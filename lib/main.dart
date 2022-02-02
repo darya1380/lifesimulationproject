@@ -70,6 +70,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               if (value1 == null || value1.isEmpty) {
                 return 'Please enter some text';
               }
+              // FIXME: updating variable in stateful requires setState
               passwordKeeper = value1;
               return null;
             },
