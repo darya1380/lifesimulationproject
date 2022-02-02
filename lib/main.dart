@@ -123,13 +123,19 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 }
 
-class SecondRoot extends StatelessWidget {
+class SecondRoot extends StatefulWidget {
   const SecondRoot({Key? key}) : super(key: key);
 
   @override
+  State<SecondRoot> createState() => _SecondRootState();
+}
+
+class _SecondRootState extends State<SecondRoot> {
+  @override
+  var money = 10000;
+  var population = 0;
   Widget build(BuildContext context) {
-    var money = 10000;
-    var population = 0;
+
     return MaterialApp(
       title: 'Welcome to Flutter',
       home: Scaffold(
@@ -142,8 +148,8 @@ class SecondRoot extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(money.toString()),
-                Icon(
+                Text('$money'),
+                const Icon(
                   Icons.attach_money, color: Colors.pink,
                 )
               ],
@@ -151,7 +157,7 @@ class SecondRoot extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(population.toString()),
+                Text('$population'),
                 Icon(Icons.family_restroom
                 , color: Colors.pink,
                 )
@@ -160,9 +166,21 @@ class SecondRoot extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                TextButton(onPressed: (){}, child: Text("Pass year"),
+                TextButton(onPressed: (){
+                  setState(() {
+                    population += 150;
+                    money *= 3;
+                    if(population > 9999) {
+                      population = 10000;
+                    }
+                    if(money > 9999) {
+                      money = 10000;
+                    }
+                  });
+
+                }, child: Text("Pass year"),
                 style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.red)
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.pinkAccent)
                 )
                   ,)
               ],
@@ -173,13 +191,27 @@ class SecondRoot extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.shopping_cart_outlined),
                   tooltip: "buy stuffs",
-                 onPressed: (){
-                    //todo navigate to shopping page
-                 },
+                    onPressed: () {
+                      // Validate returns true if the form is valid, or false otherwise.
+                        // todo
+                      final data =
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context)=>
+                                ShoppingStuffPage(),
+                            settings: RouteSettings(
+                              arguments: MoneyObject(money, population);
+                            ))
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Processing Data')),
+                        );
+                    }
                 ),
                 IconButton(
                 icon:
-                const Icon(Icons.account_balance), onPressed: (){
+                const Icon(Icons.account_balance), onPressed: ()
+                {
                   //todo navigate to government page
                 }, tooltip: "government page",
                 ),
@@ -196,4 +228,38 @@ class SecondRoot extends StatelessWidget {
     );
   }
 }
+
+class ShoppingStuffPage extends StatelessWidget
+{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return
+        MaterialApp(
+          title: "shopping page",
+          home: Scaffold(
+            appBar: AppBar(
+              title: const Text("Shopping page")
+            ),
+            body: Column(
+              children: [
+
+              ],
+            ),
+          ),
+        );
+  }
+
+}
+class MoneyObject {
+  var money;
+  var population;
+  MoneyObject(int money, int population){
+    this.money = money;
+    this.population = population;
+  }
+
+}
+
+
 
